@@ -1,0 +1,2 @@
+[console_scripts]
+ahs-cli = ahs_compressor.cli.compress:main

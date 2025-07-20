@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ahs-compressor"
+version = "2.0.4" # Incrementa la versión para PyPI
+authors = [
+    { name="Rodrigo", email="author@example.com" },
+]
+description = "A tool to compress Python code into an Abstract Hierarchical Structure (AHS) to optimize interaction with LLMs."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Text Processing :: Indexing",
+]
+dependencies = [
+    "libcst>=0.4.9",
+    "fastapi>=0.104.1",
+    "uvicorn[standard]>=0.24.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/rcdrodrigo/ahs-compressor"
+"Bug Tracker" = "https://github.com/rcdrodrigo/ahs-compressor/issues"
+
+[project.scripts]
+ahs-cli = "ahs_compressor.cli.compress:main"
+
+[tool.setuptools]
+packages = ["ahs_compressor", "ahs_compressor.app", "ahs_compressor.cli"]
+package-dir = {"ahs_compressor" = "src/ahs_compressor"}

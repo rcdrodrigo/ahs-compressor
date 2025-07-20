@@ -1,0 +1,79 @@
+{
+  "ahs": {
+    "type": "Project",
+    "name": "",
+    "children": [
+      {
+        "type": "File",
+        "name": "main.py",
+        "children": [
+          {
+            "type": "ImportFrom",
+            "ref": "@0"
+          },
+          {
+            "type": "Assign",
+            "ref": "@1"
+          },
+          {
+            "type": "Assign",
+            "ref": "@2"
+          }
+        ]
+      },
+      {
+        "type": "File",
+        "name": "my_module.py",
+        "children": [
+          {
+            "type": "Import",
+            "ref": "@0"
+          },
+          {
+            "type": "ClassDef",
+            "ref": "@1",
+            "name": "MyClass",
+            "children": [
+              {
+                "type": "FunctionDef",
+                "ref": "@2",
+                "name": "__init__",
+                "children": [
+                  {
+                    "type": "Assign",
+                    "ref": "@3"
+                  }
+                ]
+              },
+              {
+                "type": "FunctionDef",
+                "ref": "@4",
+                "name": "greet",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "FunctionDef",
+            "ref": "@5",
+            "name": "calculate_sum",
+            "children": []
+          },
+          {
+            "type": "Assign",
+            "ref": "@6"
+          }
+        ]
+      }
+    ]
+  },
+  "map": {
+    "@0": "import os",
+    "@1": "\n\nclass MyClass:\n    \"\"\"A simple class for demonstration.\"\"\"\n\n    def __init__(self, name):\n        self.name = name  # Store the name\n\n    def greet(self):\n        # This method prints a greeting\n        print(f\"Hello from {self.name}!\")\n",
+    "@2": "\ndef __init__(self, name):\n    self.name = name  # Store the name\n",
+    "@3": "self.name = name",
+    "@4": "\ndef greet(self):\n    # This method prints a greeting\n    print(f\"Hello from {self.name}!\")\n",
+    "@5": "\n\ndef calculate_sum(a: int, b: int) -> int:\n    \"\"\"\n    Calculates the sum of two numbers.\n    This function is pure.\n    \"\"\"\n    return a + b\n",
+    "@6": "MY_CONSTANT = 123"
+  }
+}

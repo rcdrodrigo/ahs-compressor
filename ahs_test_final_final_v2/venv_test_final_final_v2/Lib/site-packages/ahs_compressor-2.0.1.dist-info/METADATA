@@ -1,0 +1,115 @@
+Metadata-Version: 2.4
+Name: ahs-compressor
+Version: 2.0.1
+Summary: A tool to compress Python code into an Abstract Hierarchical Structure (AHS) to optimize interaction with LLMs.
+Author-email: Rodrigo <author@example.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/rcdrodrigo/ahs-compressor
+Project-URL: Bug Tracker, https://github.com/rcdrodrigo/ahs-compressor/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Compilers
+Classifier: Topic :: Text Processing :: Indexing
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: libcst>=0.4.9
+Requires-Dist: fastapi>=0.104.1
+Requires-Dist: uvicorn[standard]>=0.24.0
+
+# AHS-Compressor v2.0
+
+A tool to compress Python code into an **Abstract Hierarchical Structure (AHS)**, designed to optimize code analysis and interaction for Large Language Models (LLMs).
+
+[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+---
+
+## What problem does it solve?
+
+LLMs have a limited context window. Analyzing or modifying large code repositories is inefficient and often impossible, as the full source code doesn't fit into the model's prompt.
+
+**AHS-Compressor** addresses this problem through "context compression." It doesn't reduce the file size but transforms the code into a high-level structure (the AHS) and a corresponding code map. This allows an LLM to:
+
+1.  **See the project's "architecture"** (the AHS structure) without needing to see every line of code.
+2.  **Navigate the code intelligently**, requesting only the specific snippets it needs from the code map.
+3.  **Modify code safely**, as reconstructing the code from the AHS and map preserves 100% of the original formatting, including comments (thanks to `libCST`).
+
+## Key Features
+
+- **Format Preservation:** Thanks to `libCST`, all comments, whitespace, and code structure are kept intact.
+- **JSON Structure:** The AHS format is now a structured JSON, making it easy to parse and extend.
+- **Project-Level Support:** The CLI can process entire directories, generating a single AHS for the whole project.
+- **API and CLI:** Offers both a command-line interface (`ahs-cli`) for local use and a web API (FastAPI) for integrations.
+- **Packaged:** Ready to be installed as a Python package via `pip`.
+
+## ❤️ Support This Project
+
+AHS-Compressor is a free and open-source project that requires significant time and effort to maintain and improve. If you find this tool useful, please consider supporting its development. Your sponsorship helps me dedicate more time to building new features, writing documentation, and providing support to the community.
+
+You can become a sponsor through GitHub Sponsors. Every contribution is greatly appreciated!
+
+[![Sponsor me on GitHub](https://img.shields.io/badge/Sponsor-%23d9534f?style=for-the-badge&logo=GitHub+Sponsors&logoColor=white)](https://github.com/sponsors/rcdrodrigo)
+
+## Installation
+
+To install the tool and its dependencies, you can use `pip` directly from the repository (once uploaded) or from your local copy.
+
+```bash
+# Install in editable mode from the local directory
+cd /path/to/py-ahs-lmstudio
+pip install -e .
+```
+
+This will install all dependencies and make the `ahs-cli` command available in your system.
+
+## How to Use
+
+### Command-Line Interface (CLI)
+
+The CLI is the primary way to interact with the tool to compress and decompress projects.
+
+**1. Encode an entire project:**
+
+```bash
+# Encodes the 'my_project' directory and saves the output to 'compressed_project.json'
+ahs-cli encode ./my_project -o compressed_project.json
+```
+
+**2. Decode a project:**
+
+```bash
+# Reads 'compressed_project.json' and restores the code in the 'my_project_restored' directory
+ahs-cli decode compressed_project.json -o ./my_project_restored
+```
+
+### Web API
+
+The application also includes a FastAPI for integrations.
+
+**To start the server:**
+
+```bash
+# Make sure you have uvicorn installed (it's in the dependencies)
+uvicorn app.main:app --reload
+```
+
+The server will be available at `http://localhost:8000`.
+
+**Main Endpoints:**
+
+- `POST /compress-text`: Compresses a code snippet sent in the request body.
+- `POST /decompress-text`: Decompresses an AHS and map sent in the request body.
+- `GET /health`: A status endpoint to check if the API is running.
+
+## Development
+
+To contribute to the project, clone the repository, install the dependencies in editable mode as shown above, and start making changes.
+
+### Next Steps
+
+- [ ] Implement project-level compression in the API using background tasks.
+- [ ] Publish the package to PyPI.
+- [ ] Add support for more languages (e.g., JavaScript, Java) using dedicated parsers.
+- [ ] Create a Python client to interact with the API more easily.
+
