@@ -88,7 +88,109 @@ Using AHS-Compressor involves an iterative workflow between you and the LLM.
 
 5.  **Version Control (Git):**
     *   AHS-Compressor complements Git, it doesn't replace it. Always work on a Git branch. After each encoding/decoding cycle and verification, make a commit.
+# How to Install and Run AHS-Compressor (Recommended Method)
 
+To use `ahs-cli`, this project's command-line tool, you need to install it on your system. The best way to do this is using a tool called `pipx`.
+
+## Why Use `pipx`? (The Toolbox Analogy)
+
+Think of your computer as a large workshop where each project you work on needs its own special tools.
+
+* **Normal (Global) Installation:** This is like throwing all the tools from all your projects into one giant box in the middle of the workshop. At first it seems convenient, but it quickly becomes chaos. A screw from one project gets mixed up with another, and if two projects need different versions of the same wrench, you have a big problem!
+
+* **Virtual Environments (`venv`):** This is like having a separate, dedicated toolbox for each project. It's very organized and safe, but every time you want to use a tool, you have to go find that specific box and open it (`activate` the environment).
+
+* **Installation with `pipx` (Best of Both Worlds):** `pipx` acts like an intelligent tool manager. It creates a special, isolated toolbox just for `AHS-Compressor`, but then takes the main tool (`ahs-cli`) and hangs it on a **public tool wall** in your workshop.
+
+**The result:** The `ahs-cli` command is always visible and available for you to use anywhere in the workshop, but all its specialized parts and gears remain stored and organized in their own box, without mixing with anything else.
+
+### Benefits of using `pipx`:
+* **Convenience:** You type `ahs-cli` in any terminal and it simply works. You don't need to `activate` anything.
+* **Safety:** Your main Python installation stays clean and stable. There's no risk of `AHS-Compressor` conflicting with other projects or tools.
+* **Easy Maintenance:** Updating or uninstalling the tool is incredibly simple.
+
+## Step-by-Step Installation Guide
+
+### 1. Install `pipx`
+Open your terminal (PowerShell, CMD, etc.) and run this command. You only need to do this once in your lifetime:
+
+```bash
+pip install pipx
+```
+
+### 2. Add `pipx` to your system
+This command ensures your system knows where to find the tools that `pipx` installs:
+
+```bash
+pipx ensurepath
+```
+
+*(You may need to restart your terminal after this step)*
+
+### 3. Install `AHS-Compressor`
+Finally, install the tool directly from GitHub with this simple command:
+
+```bash
+pipx install git+https://github.com/rcdrodrigo/ahs-compressor.git
+```
+
+### 4. Verify Installation
+Test that everything is working correctly:
+
+```bash
+ahs-cli --help
+```
+
+You should see the help information for the AHS-Compressor tool.
+
+## Alternative Installation Methods
+
+### For Developers (Local Development)
+If you want to contribute to the project or work with the source code:
+
+```bash
+# Clone the repository
+git clone https://github.com/rcdrodrigo/ahs-compressor.git
+cd ahs-compressor
+
+# Install in editable mode
+pip install -e .
+```
+
+### Using pip (Not Recommended for End Users)
+If you prefer not to use `pipx`, you can install with regular pip, but be aware of potential conflicts:
+
+```bash
+pip install git+https://github.com/rcdrodrigo/ahs-compressor.git
+```
+
+## Quick Start
+
+Once installed, you can immediately start using AHS-Compressor:
+
+```bash
+# Compress a Python project
+ahs-cli encode ./my_project -o compressed_project.json
+
+# Decompress back to source code
+ahs-cli decode compressed_project.json -o ./restored_project
+```
+
+## Updating AHS-Compressor
+
+To update to the latest version:
+
+```bash
+pipx upgrade ahs-compressor
+```
+
+## Uninstalling
+
+To remove AHS-Compressor from your system:
+
+```bash
+pipx uninstall ahs-compressor
+```
 ## ❤️ Support This Project
 
 AHS-Compressor is a free and open-source project that requires time and effort to maintain and improve. If you find this tool useful, please consider supporting its development.
