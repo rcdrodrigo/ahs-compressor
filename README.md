@@ -1,4 +1,5 @@
 # AHS-Compressor v2.0
+[![Apoyar el proyecto](https://img.shields.io/badge/Apoyar_el_proyecto-❤️-ff69b4?style=for-the-badge)](#️-apoya-este-proyecto)
 
 A tool to compress Python code into an **Abstract Hierarchical Structure (AHS)**, designed to optimize code analysis and interaction for Large Language Models (LLMs).
 
