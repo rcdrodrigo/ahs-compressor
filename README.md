@@ -236,11 +236,11 @@ pip install -e .
 4. **📚 Análisis Estratégico:** Usa AHS para análisis de arquitectura e identificación de dependencias
 5. **🔧 Control de Versiones:** Siempre trabaja en ramas de Git y haz commit después de cada ciclo
 
-## ❤️ Apoya Este Proyecto
+❤️ Apoya Este Proyecto
 
 AHS-Compressor es un proyecto gratuito y de código abierto que requiere tiempo y esfuerzo para mantener y mejorar. Si encuentras esta herramienta útil, considera apoyar su desarrollo:
 
-### 🌟 Maneras de Apoyar
+🌟 Maneras de Apoyar
 
 [![GitHub Sponsors](https://img.shields.io/badge/GitHub-Sponsors-ea4aaa?style=for-the-badge&logo=github)](https://github.com/sponsors/rcdrodrigo)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/rcdrodrigo)
