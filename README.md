@@ -1,5 +1,4 @@
 # AHS-Compressor v2.0
-[![Apoyar el proyecto](https://img.shields.io/badge/Apoyar_el_proyecto-❤️-ff69b4?style=for-the-badge)](#️-apoya-este-proyecto)
 
 A tool to compress Python code into an **Abstract Hierarchical Structure (AHS)**, designed to optimize code analysis and interaction for Large Language Models (LLMs).
 
@@ -72,12 +71,16 @@ Here's a proven prompt template you can use with any LLM (local or remote) to ge
 
 ### Recommended System Prompt Template
 
+```
 You are an expert assistant for Python code analysis and refactoring. I will give you the structure of a project in a special format called AHS (Abstract Hierarchical Structure).
+
 Your task is to help me understand and modify code based on this structure. I will give you the complete structure first. Then, you can request the code for any part using its ref (for example, @5). You must NOT invent code, only request it through its ref.
 
 PROJECT STRUCTURE (AHS):
 [INSERT_YOUR_AHS_HERE]
+
 Wait for my first instruction.
+```
 
 ### Real Example in Action
 
@@ -102,19 +105,27 @@ Let's say you have a Windows diagnostic script. After encoding with `ahs-cli enc
     { "type": "FunctionDef", "ref": "@14", "name": "listar_inicio" },
     { "type": "FunctionDef", "ref": "@15", "name": "comprimir_y_abrir_logs" }
 ]
+```
 
-Sample Interaction Flow
-You: "I want to optimize the memory cleanup function. Can you analyze the liberar_memoria function?"
-LLM: "I can see the liberar_memoria function in the structure (ref: @13). To analyze and optimize it, I need to see the current implementation. Please provide the content of @13."
-You: [Copy the content from your JSON map for "@13"]
-LLM: [Analyzes the function and suggests optimizations]
-You: [Update the map with the LLM's improved version, then decode to get the updated project]
+### Sample Interaction Flow
+
+**You:** "I want to optimize the memory cleanup function. Can you analyze the liberar_memoria function?"
+
+**LLM:** "I can see the liberar_memoria function in the structure (ref: @13). To analyze and optimize it, I need to see the current implementation. Please provide the content of @13."
+
+**You:** [Copy the content from your JSON map for "@13"]
+
+**LLM:** [Analyzes the function and suggests optimizations]
+
+**You:** [Update the map with the LLM's improved version, then decode to get the updated project]
+
 This workflow allows the LLM to:
 
-🎯 Focus immediately on relevant code sections
-🧠 Understand context without being overwhelmed by irrelevant code
-🔄 Work iteratively on specific improvements
-📊 See the big picture of your project's architecture
+🎯 Focus immediately on relevant code sections  
+🧠 Understand context without being overwhelmed by irrelevant code  
+🔄 Work iteratively on specific improvements  
+📊 See the big picture of your project's architecture  
+
 ### Maximizing Efficiency:
 
 1.  **Specific Prompt Engineering for AHS:**
@@ -137,11 +148,14 @@ This workflow allows the LLM to:
 
 5.  **Version Control (Git):**
     *   AHS-Compressor complements Git, it doesn't replace it. Always work on a Git branch. After each encoding/decoding cycle and verification, make a commit.
-# How to Install and Run AHS-Compressor (Recommended Method)
+
+## Installation
+
+### Recommended Method: Using pipx
 
 To use `ahs-cli`, this project's command-line tool, you need to install it on your system. The best way to do this is using a tool called `pipx`.
 
-## Why Use `pipx`? (The Toolbox Analogy)
+#### Why Use `pipx`? (The Toolbox Analogy)
 
 Think of your computer as a large workshop where each project you work on needs its own special tools.
 
@@ -153,21 +167,21 @@ Think of your computer as a large workshop where each project you work on needs 
 
 **The result:** The `ahs-cli` command is always visible and available for you to use anywhere in the workshop, but all its specialized parts and gears remain stored and organized in their own box, without mixing with anything else.
 
-### Benefits of using `pipx`:
+#### Benefits of using `pipx`:
 * **Convenience:** You type `ahs-cli` in any terminal and it simply works. You don't need to `activate` anything.
 * **Safety:** Your main Python installation stays clean and stable. There's no risk of `AHS-Compressor` conflicting with other projects or tools.
 * **Easy Maintenance:** Updating or uninstalling the tool is incredibly simple.
 
-## Step-by-Step Installation Guide
+#### Step-by-Step Installation Guide
 
-### 1. Install `pipx`
+**1. Install `pipx`**
 Open your terminal (PowerShell, CMD, etc.) and run this command. You only need to do this once in your lifetime:
 
 ```bash
 pip install pipx
 ```
 
-### 2. Add `pipx` to your system
+**2. Add `pipx` to your system**
 This command ensures your system knows where to find the tools that `pipx` installs:
 
 ```bash
@@ -176,14 +190,14 @@ pipx ensurepath
 
 *(You may need to restart your terminal after this step)*
 
-### 3. Install `AHS-Compressor`
+**3. Install `AHS-Compressor`**
 Finally, install the tool directly from GitHub with this simple command:
 
 ```bash
 pipx install git+https://github.com/rcdrodrigo/ahs-compressor.git
 ```
 
-### 4. Verify Installation
+**4. Verify Installation**
 Test that everything is working correctly:
 
 ```bash
@@ -192,9 +206,9 @@ ahs-cli --help
 
 You should see the help information for the AHS-Compressor tool.
 
-## Alternative Installation Methods
+### Alternative Installation Methods
 
-### For Developers (Local Development)
+#### For Developers (Local Development)
 If you want to contribute to the project or work with the source code:
 
 ```bash
@@ -206,14 +220,14 @@ cd ahs-compressor
 pip install -e .
 ```
 
-### Using pip (Not Recommended for End Users)
+#### Using pip (Not Recommended for End Users)
 If you prefer not to use `pipx`, you can install with regular pip, but be aware of potential conflicts:
 
 ```bash
 pip install git+https://github.com/rcdrodrigo/ahs-compressor.git
 ```
 
-## Quick Start
+### Quick Start
 
 Once installed, you can immediately start using AHS-Compressor:
 
@@ -225,7 +239,7 @@ ahs-cli encode ./my_project -o compressed_project.json
 ahs-cli decode compressed_project.json -o ./restored_project
 ```
 
-## Updating AHS-Compressor
+### Updating AHS-Compressor
 
 To update to the latest version:
 
@@ -233,36 +247,15 @@ To update to the latest version:
 pipx upgrade ahs-compressor
 ```
 
-## Uninstalling
+### Uninstalling
 
 To remove AHS-Compressor from your system:
 
 ```bash
 pipx uninstall ahs-compressor
 ```
-## ❤️ Support This Project
 
-AHS-Compressor is a free and open-source project that requires time and effort to maintain and improve. If you find this tool useful, please consider supporting its development.
-
-⭐ Star the Repository: It's the quickest and easiest way to show your support and help the project gain visibility within the community.
-
-Sponsor the Project (Coming Soon): Our official GitHub Sponsors profile is currently pending review. Once it's approved, you'll be able to support the project directly from there. Every contribution, large or small, is greatly appreciated!
-
-[![Sponsor me on GitHub](https://img.shields.io/badge/Sponsor-%23d9534f?style=for-the-badge&logo=GitHub+Sponsors&logoColor=white)](https://github.com/sponsors/rcdrodrigo)
-
-## Installation
-
-To install the tool and its dependencies, you can use `pip` directly from the repository (once uploaded) or from your local copy.
-
-```bash
-# Install in editable mode from the local directory
-cd /path/to/py-ahs-lmstudio
-pip install -e .
-```
-
-This will install all dependencies and make the `ahs-cli` command available in your system.
-
-## How to Use
+## Usage
 
 ### Command-Line Interface (CLI)
 
@@ -312,3 +305,12 @@ To contribute to the project, clone the repository, install the dependencies in 
 - [ ] Add support for more languages (e.g., JavaScript, Java) using dedicated parsers.
 - [ ] Create a Python client to interact with the API more easily.
 
+## ❤️ Support This Project
+
+AHS-Compressor is a free and open-source project that requires time and effort to maintain and improve. If you find this tool useful, please consider supporting its development.
+
+⭐ **Star the Repository:** It's the quickest and easiest way to show your support and help the project gain visibility within the community.
+
+💝 **Contribute:** Found a bug? Have an idea for improvement? Pull requests are welcome!
+
+📢 **Spread the Word:** Share the project with other developers who might find it useful.
