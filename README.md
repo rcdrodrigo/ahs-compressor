@@ -90,9 +90,11 @@ Using AHS-Compressor involves an iterative workflow between you and the LLM.
 
 ## ❤️ Support This Project
 
-AHS-Compressor is a free and open-source project that requires significant time and effort to maintain and improve. If you find this tool useful, please consider supporting its development. Your sponsorship helps me dedicate more time to building new features, writing documentation, and providing support to the community.
+AHS-Compressor is a free and open-source project that requires time and effort to maintain and improve. If you find this tool useful, please consider supporting its development.
 
-You can become a sponsor through GitHub Sponsors. Every contribution is greatly appreciated!
+⭐ Star the Repository: It's the quickest and easiest way to show your support and help the project gain visibility within the community.
+
+Sponsor the Project (Coming Soon): Our official GitHub Sponsors profile is currently pending review. Once it's approved, you'll be able to support the project directly from there. Every contribution, large or small, is greatly appreciated!
 
 [![Sponsor me on GitHub](https://img.shields.io/badge/Sponsor-%23d9534f?style=for-the-badge&logo=GitHub+Sponsors&logoColor=white)](https://github.com/sponsors/rcdrodrigo)
 
