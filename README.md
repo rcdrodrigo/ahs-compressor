@@ -66,6 +66,55 @@ Using AHS-Compressor involves an iterative workflow between you and the LLM.
     *   `ahs-cli decode my_project_context.json -o ./restored_project`
     *   This generates a new directory with your updated code.
 
+## Practical Example: LLM Interaction Setup
+
+Here's a proven prompt template you can use with any LLM (local or remote) to get the best results with AHS-Compressor:
+
+### Recommended System Prompt Template
+
+You are an expert assistant for Python code analysis and refactoring. I will give you the structure of a project in a special format called AHS (Abstract Hierarchical Structure).
+Your task is to help me understand and modify code based on this structure. I will give you the complete structure first. Then, you can request the code for any part using its ref (for example, @5). You must NOT invent code, only request it through its ref.
+
+PROJECT STRUCTURE (AHS):
+[INSERT_YOUR_AHS_HERE]
+Wait for my first instruction.
+
+### Real Example in Action
+
+Let's say you have a Windows diagnostic script. After encoding with `ahs-cli encode diagnostic_script.py -o diagnostic.json`, your AHS might look like this:
+
+```json
+[
+    { "type": "Import", "ref": "@0" },
+    { "type": "Import", "ref": "@1" },
+    { "type": "Import", "ref": "@2" },
+    { "type": "Import", "ref": "@3" },
+    { "type": "Import", "ref": "@4" },
+    { "type": "FunctionDef", "ref": "@5", "name": "ejecutar_powershell" },
+    { "type": "FunctionDef", "ref": "@6", "name": "guardar_log" },
+    { "type": "FunctionDef", "ref": "@7", "name": "escanear_procesos" },
+    { "type": "FunctionDef", "ref": "@8", "name": "conexiones_red" },
+    { "type": "FunctionDef", "ref": "@9", "name": "archivos_malformados" },
+    { "type": "FunctionDef", "ref": "@10", "name": "escaneo_sfc" },
+    { "type": "FunctionDef", "ref": "@11", "name": "escaneo_dism" },
+    { "type": "FunctionDef", "ref": "@12", "name": "limpiar_temporales" },
+    { "type": "FunctionDef", "ref": "@13", "name": "liberar_memoria" },
+    { "type": "FunctionDef", "ref": "@14", "name": "listar_inicio" },
+    { "type": "FunctionDef", "ref": "@15", "name": "comprimir_y_abrir_logs" }
+]
+
+Sample Interaction Flow
+You: "I want to optimize the memory cleanup function. Can you analyze the liberar_memoria function?"
+LLM: "I can see the liberar_memoria function in the structure (ref: @13). To analyze and optimize it, I need to see the current implementation. Please provide the content of @13."
+You: [Copy the content from your JSON map for "@13"]
+LLM: [Analyzes the function and suggests optimizations]
+You: [Update the map with the LLM's improved version, then decode to get the updated project]
+This workflow allows the LLM to:
+
+🎯 Focus immediately on relevant code sections
+🧠 Understand context without being overwhelmed by irrelevant code
+🔄 Work iteratively on specific improvements
+📊 See the big picture of your project's architecture
 ### Maximizing Efficiency:
 
 1.  **Specific Prompt Engineering for AHS:**
