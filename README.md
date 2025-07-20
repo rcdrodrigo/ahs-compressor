@@ -1,4 +1,5 @@
 # AHS-Compressor v2.0
+[![Apoyar el proyecto](https://img.shields.io/badge/Apoyar_el_proyecto-❤️-ff69b4?style=for-the-badge)](#️-support-this-project)
 
 A tool to compress Python code into an **Abstract Hierarchical Structure (AHS)**, designed to optimize code analysis and interaction for Large Language Models (LLMs).
 
@@ -305,12 +306,12 @@ To contribute to the project, clone the repository, install the dependencies in 
 - [ ] Add support for more languages (e.g., JavaScript, Java) using dedicated parsers.
 - [ ] Create a Python client to interact with the API more easily.
 
-## ❤️ Support This Project
+## ❤️ Apoya este proyecto
 
-AHS-Compressor is a free and open-source project that requires time and effort to maintain and improve. If you find this tool useful, please consider supporting its development.
+AHS-Compressor es un proyecto gratuito y de código abierto que requiere tiempo y esfuerzo para mantenerlo y mejorarlo. Si encuentras útil esta herramienta, considera apoyar su desarrollo.
 
-⭐ **Star the Repository:** It's the quickest and easiest way to show your support and help the project gain visibility within the community.
+⭐ **Estrella el repositorio:** Es la forma más rápida y sencilla de mostrar tu apoyo y ayudar a que el proyecto gane visibilidad en la comunidad.
 
-💝 **Contribute:** Found a bug? Have an idea for improvement? Pull requests are welcome!
+💝 **Contribuye:** ¿Encontraste un error? ¿Tienes una idea para mejorar? ¡Las solicitudes de incorporación de cambios son bienvenidas!
 
-📢 **Spread the Word:** Share the project with other developers who might find it useful.
+📢 **Corre la voz:** Comparte el proyecto con otros desarrolladores que puedan encontrarlo útil.
