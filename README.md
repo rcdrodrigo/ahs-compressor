@@ -133,7 +133,7 @@ Este flujo de trabajo permite al LLM:
 
 ¿Quieres ver AHS-Compressor en acción refactorizando un proyecto real de 2000+ líneas?
 
- 👉 [Complete Example: AHS-Compressor + Claude](Complete%20Example:%20AHS-Compressor%20+%20Claude.md)
+ 👉 [Complete Example: AHS-Compressor + Claude](https://github.com/tu-usuario/ahs-compressor/blob/main/Complete%20Example:%20AHS-Compressor%20+%20Claude.md)
 
 Este ejemplo detallado demuestra:
 
