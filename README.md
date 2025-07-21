@@ -82,27 +82,38 @@ Eres un asistente experto en análisis y refactorización de código Python. Te 
 Tu tarea es ayudarme a entender y modificar el código basándote en esta estructura. Primero te daré la estructura completa. Luego, puedes solicitar el código de cualquier parte usando su `ref` (por ejemplo, `@5`). No inventes código, solo solicítalo a través de su `ref`.
 
 ---
-ESTRUCTURA DEL PROYECTO (AHS):
-[INSERTAR_TU_AHS_AQUÍ]
+Eres un asistente experto en análisis y refactorización de código Python. Voy a darte la estructura de un proyecto en un formato especial llamado AHS (Abstract Hierarchical Structure).
+
+Tu tarea es ayudarme a entender y modificar el código basándote en esta estructura. Yo te daré la estructura completa primero. Luego, tú me puedes pedir el código de cualquier parte usando su `ref` (por ejemplo, `@5`). No debes inventar código, solo pedirlo a través de su `ref`.
+
 ---
+ESTRUCTURA DEL PROYECTO (AHS):
 
-Ahora, espera mi primera instrucción.
-```
-
-### 📋 Ejemplo Real en Acción
-
-Después de codificar un script de diagnóstico de Windows:
-
-```json
 [
     { "type": "Import", "ref": "@0" },
     { "type": "Import", "ref": "@1" },
+    { "type": "Import", "ref": "@2" },
+    { "type": "Import", "ref": "@3" },
+    { "type": "Import", "ref": "@4" },
     { "type": "FunctionDef", "ref": "@5", "name": "ejecutar_powershell" },
     { "type": "FunctionDef", "ref": "@6", "name": "guardar_log" },
     { "type": "FunctionDef", "ref": "@7", "name": "escanear_procesos" },
-    { "type": "FunctionDef", "ref": "@13", "name": "liberar_memoria" }
+    { "type": "FunctionDef", "ref": "@8", "name": "conexiones_red" },
+    { "type": "FunctionDef", "ref": "@9", "name": "archivos_malformados" },
+    { "type": "FunctionDef", "ref": "@10", "name": "escaneo_sfc" },
+    { "type": "FunctionDef", "ref": "@11", "name": "escaneo_dism" },
+    { "type": "FunctionDef", "ref": "@12", "name": "limpiar_temporales" },
+    { "type": "FunctionDef", "ref": "@13", "name": "liberar_memoria" },
+    { "type": "FunctionDef", "ref": "@14", "name": "listar_inicio" },
+    { "type": "FunctionDef", "ref": "@15", "name": "comprimir_y_abrir_logs" }
 ]
-```
+---
+
+Hecho esto, espera mi primera instrucción
+---
+
+
+
 
 **Flujo de Interacción de Ejemplo:**
 
