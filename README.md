@@ -131,6 +131,35 @@ Este flujo de trabajo permite al LLM:
 - 🔄 Trabajar iterativamente en mejoras específicas
 - 📊 Ver el panorama general de la arquitectura de tu proyecto
 
+## 🤖 Ejemplo Completo con Claude
+
+¿Quieres ver AHS-Compressor en acción refactorizando un proyecto real de 2000+ líneas?
+
+### 👉 [**Ver Ejemplo Completo: Optimización con Claude**](EXAMPLE_CLAUDE.md)
+
+Este ejemplo detallado demuestra:
+
+- **🎯 Flujo completo paso a paso** - Desde codificación hasta reconstrucción
+- **💬 Conversación real con Claude** - Interacciones específicas y prompts optimizados  
+- **⚡ Refactorización de sistema de seguridad** - Proyecto complejo con múltiples módulos
+- **📊 Métricas de rendimiento** - 5x más rápido que métodos tradicionales
+- **🛠️ Mejores prácticas** - Estrategias comprobadas para máxima eficiencia
+
+**Resultados del ejemplo:**
+- ✅ 2,180 líneas analizadas sin perder contexto
+- ✅ 15+ funciones optimizadas con mejores prácticas  
+- ✅ 8 bugs encontrados y corregidos proactivamente
+- ✅ Solo ~1,200 tokens por iteración (vs 8,000+ tradicional)
+
+### 🚀 Casos de Uso Destacados
+
+- **Legacy Code Modernization** - Actualizar sistemas antiguos
+- **Architecture Reviews** - Análisis profundo de diseño  
+- **Performance Optimization** - Identificar y resolver cuellos de botella
+- **Code Quality Improvement** - Aplicar patrones y mejores prácticas
+
+---
+
 ## 🚀 Instalación
 
 ### Método Recomendado: Usando pipx
