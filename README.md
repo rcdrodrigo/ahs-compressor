@@ -110,7 +110,7 @@ ESTRUCTURA DEL PROYECTO (AHS):
 ---
 
 Hecho esto, espera mi primera instrucción
----
+
 
 
 
@@ -158,7 +158,7 @@ Este ejemplo detallado demuestra:
 - **Performance Optimization** - Identificar y resolver cuellos de botella
 - **Code Quality Improvement** - Aplicar patrones y mejores prácticas
 
----
+
 
 ## 🚀 Instalación
 
@@ -177,7 +177,7 @@ Piensa en tu computadora como un gran taller donde cada proyecto necesita sus pr
 **1. Instala `pipx`** (una vez en tu vida):
 ```bash
 pip install pipx
-```
+
 
 **2. Agrega `pipx` a tu sistema:**
 ```bash
