@@ -113,7 +113,7 @@ Hecho esto, espera mi primera instrucción
 ---
 
 
-**Flujo de Interacción de Ejemplo:**
+--**Flujo de Interacción de Ejemplo:**
 
 **Tú:** "Quiero optimizar la función de limpieza de memoria. ¿Puedes analizar la función liberar_memoria?"
 
