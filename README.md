@@ -182,7 +182,7 @@ pip install pipx
 **2. Agrega `pipx` a tu sistema:**
 ```bash
 pipx ensurepath
-```
+
 *(Reinicia tu terminal después de este paso)*
 
 **3. Instala `AHS-Compressor`:**
