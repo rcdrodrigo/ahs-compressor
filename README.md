@@ -89,7 +89,7 @@ This workflow allows the LLM to:
 
 ## 🤖 Complete Example with Claude
 Want to see AHS-Compressor in action refactoring a real 2000+ line project?
-👉 [Complete Example: AHS-Compressor + Claude](https://github.com/rcdrodrigo/ahs-compressor/blob/main/Complete%20Example%3A%20AHS-Compressor%20%2B%20Claude.md)
+👉 [Complete Example: AHS-Compressor + Claude](https://github.com/rcdrodrigo/ahs-compressor/blob/main/Complete%20Example%20-%20AHS-Compressor%20%2B%20Claude.md)
 
 This detailed example demonstrates:
 - **🎯 Full step-by-step workflow** - From encoding to reconstruction.
