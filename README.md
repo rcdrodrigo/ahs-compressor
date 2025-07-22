@@ -1,329 +1,243 @@
-# AHS-Compressor v2.0
-
-[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/rcdrodrigo/ahs-compressor?style=social)](https://github.com/rcdrodrigo/ahs-compressor/stargazers)
-
-> Una herramienta para comprimir código Python en una **Estructura Jerárquica Abstracta (AHS)**, diseñada para optimizar el análisis e interacción de código con Modelos de Lenguaje Grande (LLMs).
+# AHS-Compressor v2.0 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![GitHub stars](https://img.shields.io/github/stars/rcdrodrigo/ahs-compressor?style=social)](https://github.com/rcdrodrigo/ahs-compressor/stargazers)
+> A tool to compress Python code into an **Abstract Hierarchical Structure (AHS)**, designed to optimize code analysis and interaction with Large Language Models (LLMs).
 
 ---
 
-## 🎯 ¿Qué problema resuelve?
+## 🎯 What problem does it solve?
+LLMs have a limited context window. Analyzing or modifying large code repositories is inefficient and often impossible, as the full source code doesn't fit into the model's prompt.
 
-Los LLMs tienen una ventana de contexto limitada. Analizar o modificar repositorios de código grandes es ineficiente y a menudo imposible, ya que el código fuente completo no cabe en el prompt del modelo.
+**AHS-Compressor** addresses this problem through "context compression." It doesn't reduce the file size but transforms the code into a high-level structure (the AHS) and a corresponding code map. This allows an LLM to:
+1.  **See the project's "architecture"** (the AHS structure) without needing to see every line of code.
+2.  **Navigate the code intelligently**, requesting only the specific snippets it needs from the code map.
+3.  **Modify code safely**, as rebuilding the code from the AHS and map preserves 100% of the original formatting, including comments (thanks to `libCST`).
 
-**AHS-Compressor** aborda este problema a través de "compresión de contexto". No reduce el tamaño del archivo sino que transforma el código en una estructura de alto nivel (el AHS) y un mapa de código correspondiente. Esto permite a un LLM:
+## ✨ Key Features
+- **🔄 Format Preservation:** Thanks to `libCST`, all comments, whitespace, and code structure are kept intact.
+- **📋 JSON Structure:** The AHS format is now a structured JSON, making it easier to parse and extend.
+- **🏗️ Project-Level Support:** The CLI can process entire directories, generating a single AHS for the whole project.
+- **⚡ API and CLI:** Offers both a command-line interface (`ahs-cli`) for local use and a web API (FastAPI) for integrations.
+- **📦 Ready to Install:** Available as a Python package via `pip`.
 
-1. **Ver la "arquitectura" del proyecto** (la estructura AHS) sin necesidad de ver cada línea de código
-2. **Navegar el código inteligentemente**, solicitando solo los fragmentos específicos que necesita del mapa de código
-3. **Modificar código de forma segura**, ya que reconstruir el código desde el AHS y el mapa preserva el 100% del formato original, incluyendo comentarios (gracias a `libCST`)
+## 🧠 Understanding AHS-Compressor: Real-World Utility and Workflow
+The true utility of AHS-Compressor lies in its ability to **overcome the context window limitations of LLMs**, especially local models.
 
-## ✨ Características Clave
+### 📚 The Book Analogy
+Imagine an LLM as a very smart student who can only read one page of a book at a time. If you give them an entire book (a large software project), they get overwhelmed and can't grasp the overall plot or where to find specific information.
 
-- **🔄 Preservación de Formato:** Gracias a `libCST`, todos los comentarios, espacios en blanco y estructura del código se mantienen intactos
-- **📋 Estructura JSON:** El formato AHS es ahora un JSON estructurado, facilitando su análisis y extensión
-- **🏗️ Soporte a Nivel de Proyecto:** El CLI puede procesar directorios completos, generando un único AHS para todo el proyecto
-- **⚡ API y CLI:** Ofrece tanto interfaz de línea de comandos (`ahs-cli`) para uso local como API web (FastAPI) para integraciones
-- **📦 Listo para Instalar:** Disponible como paquete de Python via `pip`
+**AHS-Compressor transforms the "book" into:**
+1.  **📑 An "Index" (the AHS):** A compact representation of the project's structure—what files exist, what classes and functions they contain, how they relate. This "index" is small enough for the LLM to read completely.
+2.  **📖 A "Dictionary" (the Code Map):** Contains the exact text of each code snippet referenced in the index.
 
-## 🧠 Entendiendo AHS-Compressor: Utilidad Real y Flujo de Trabajo
+### 🎯 Key Benefits
+- **🗜️ Semantic Context Compression:** Reduces the "irrelevant information" the LLM needs to process to understand the structure.
+- **🧭 Smart Navigation:** Allows the LLM to "jump" directly to relevant code sections without loading the entire file.
+- **✅ Perfect Fidelity:** Code reconstruction is 100% identical to the original, including comments and formatting.
+- **🏠 Empowering Local LLMs:** Local models with smaller context windows become much more useful for software engineering tasks.
 
-La verdadera utilidad de AHS-Compressor radica en su capacidad para **superar las limitaciones de la ventana de contexto de los LLMs**, especialmente modelos locales.
+### 🔄 How to Use: The Complete Workflow
+Using AHS-Compressor involves an iterative workflow between you and the LLM.
 
-### 📚 La Analogía del Libro
-
-Imagina un LLM como un estudiante muy inteligente que solo puede leer una página de un libro a la vez. Si le das un libro completo (un proyecto de software grande), se abruma y no puede captar la trama general o dónde encontrar información específica.
-
-**AHS-Compressor transforma el "libro" en:**
-
-1. **📑 Un "Índice" (el AHS):** Una representación compacta de la estructura del proyecto - qué archivos existen, qué clases y funciones contienen, cómo se relacionan. Este "índice" es tan pequeño que el LLM puede leerlo completamente.
-
-2. **📖 Un "Diccionario" (el Mapa de Código):** Contiene el texto exacto de cada fragmento de código referenciado en el índice.
-
-### 🎯 Beneficios Clave
-
-- **🗜️ Compresión Semántica de Contexto:** Reduce "información irrelevante" que el LLM necesita procesar para entender la estructura
-- **🧭 Navegación Inteligente:** Permite al LLM "saltar" directamente a secciones de código relevantes sin cargar el archivo completo
-- **✅ Fidelidad Perfecta:** La reconstrucción del código es 100% idéntica al original, incluyendo comentarios y formato
-- **🏠 Empoderando LLMs Locales:** Los modelos locales con ventanas de contexto más pequeñas se vuelven mucho más útiles para tareas de ingeniería de software
-
-### 🔄 Cómo Usar: El Flujo de Trabajo Completo
-
-Usar AHS-Compressor involucra un flujo de trabajo iterativo entre tú y el LLM.
-
-#### Paso 1: Codificar el Proyecto (Acción Humana)
-Usa el CLI para transformar tu proyecto al formato AHS + Mapa:
+#### Step 1: Encode the Project (Human Action)
+Use the CLI to transform your project into the AHS + Map format:
 ```bash
-ahs-cli encode ./mi_proyecto -o contexto_proyecto.json
+ahs-cli encode ./my_project -o project_context.json
 ```
-Esto genera un archivo JSON con dos claves principales: `"ahs"` (la estructura) y `"map"` (el contenido).
+This generates a JSON file with two main keys: `"ahs"` (the structure) and `"map"` (the content).
 
-#### Paso 2: Interactuar con el LLM (Humano + LLM)
-1. **Proporciona la estructura AHS** al LLM
-2. **Dale una tarea al LLM** (ej: "Refactoriza la función `calcular_suma`")
-3. **El LLM identifica la `ref` relevante** (ej: `@5`)
-4. **Tú proporcionas el contenido** del mapa de código para esa `ref`
-5. **El LLM procesa y devuelve la versión modificada**
-6. **Tú actualizas el mapa de código** con los cambios
+#### Step 2: Interact with the LLM (Human + LLM)
+1.  **Provide the AHS structure** to the LLM.
+2.  **Give the LLM a task** (e.g., "Refactor the `calculate_sum` function").
+3.  **The LLM identifies the relevant `ref`** (e.g., `@5`).
+4.  **You provide the content** from the code map for that `ref`.
+5.  **The LLM processes and returns the modified version**.
+6.  **You update the code map** with the changes.
 
-#### Paso 3: Decodificar el Proyecto (Acción Humana)
-Reconstruye el proyecto completo con tus cambios:
+#### Step 3: Decode the Project (Human Action)
+Rebuild the complete project with your changes:
 ```bash
-ahs-cli decode contexto_proyecto.json -o ./proyecto_restaurado
+ahs-cli decode project_context.json -o ./restored_project
 ```
 
-## 💬 Configuración de Interacción con LLM
-
-### Plantilla de Prompt del Sistema Recomendada
-
+## 💬 LLM Interaction Setup
+### Recommended System Prompt Template
 ```
-Eres un asistente experto en análisis y refactorización de código Python. Te daré una estructura de proyecto en un formato especial llamado AHS (Abstract Hierarchical Structure).
-
-Tu tarea es ayudarme a entender y modificar el código basándote en esta estructura. Primero te daré la estructura completa. Luego, puedes solicitar el código de cualquier parte usando su `ref` (por ejemplo, `@5`). No inventes código, solo solicítalo a través de su `ref`.
-
+You are an expert assistant for Python code analysis and refactoring. I will provide you with a project structure in a special format called AHS (Abstract Hierarchical Structure). Your task is to help me understand and modify the code based on this structure.
+First, I will give you the complete structure. Then, you can request the code for any part using its `ref` (e.g., `@5`). Do not invent code; only request it using its `ref`.
 ---
-Eres un asistente experto en análisis y refactorización de código Python. Voy a darte la estructura de un proyecto en un formato especial llamado AHS (Abstract Hierarchical Structure).
-
-Tu tarea es ayudarme a entender y modificar el código basándote en esta estructura. Yo te daré la estructura completa primero. Luego, tú me puedes pedir el código de cualquier parte usando su `ref` (por ejemplo, `@5`). No debes inventar código, solo pedirlo a través de su `ref`.
-
----
-ESTRUCTURA DEL PROYECTO (AHS):
-
+PROJECT STRUCTURE (AHS):
 [
-    { "type": "Import", "ref": "@0" },
-    { "type": "Import", "ref": "@1" },
-    { "type": "Import", "ref": "@2" },
-    { "type": "Import", "ref": "@3" },
-    { "type": "Import", "ref": "@4" },
-    { "type": "FunctionDef", "ref": "@5", "name": "ejecutar_powershell" },
-    { "type": "FunctionDef", "ref": "@6", "name": "guardar_log" },
-    { "type": "FunctionDef", "ref": "@7", "name": "escanear_procesos" },
-    { "type": "FunctionDef", "ref": "@8", "name": "conexiones_red" },
-    { "type": "FunctionDef", "ref": "@9", "name": "archivos_malformados" },
-    { "type": "FunctionDef", "ref": "@10", "name": "escaneo_sfc" },
-    { "type": "FunctionDef", "ref": "@11", "name": "escaneo_dism" },
-    { "type": "FunctionDef", "ref": "@12", "name": "limpiar_temporales" },
-    { "type": "FunctionDef", "ref": "@13", "name": "liberar_memoria" },
-    { "type": "FunctionDef", "ref": "@14", "name": "listar_inicio" },
-    { "type": "FunctionDef", "ref": "@15", "name": "comprimir_y_abrir_logs" }
+  { "type": "Import", "ref": "@0" },
+  { "type": "Import", "ref": "@1" },
+  { "type": "FunctionDef", "ref": "@5", "name": "run_powershell" },
+  { "type": "FunctionDef", "ref": "@6", "name": "save_log" }
 ]
 ---
+Once this is done, wait for my first instruction.
+```
 
-Hecho esto, espera mi primera instrucción
----
+**Example Interaction Flow:**
+**You:** "I want to optimize the memory cleanup function. Can you analyze the `free_memory` function?"
+**LLM:** "I can see the `free_memory` function in the structure (ref: @13). To analyze and optimize it, I need to see the current implementation. Please provide the content of @13."
+**You:** [Copy the content from your JSON map for "@13"]
+**LLM:** [Analyzes the function and suggests optimizations]
 
-****
---**Flujo de Interacción de Ejemplo:**
+This workflow allows the LLM to:
+- 🎯 Immediately focus on relevant code sections.
+- 🧠 Understand the context without being overwhelmed.
+- 🔄 Work iteratively on specific improvements.
+- 📊 See the big picture of your project's architecture.
 
-**Tú:** "Quiero optimizar la función de limpieza de memoria. ¿Puedes analizar la función liberar_memoria?"
+## 🤖 Complete Example with Claude
+Want to see AHS-Compressor in action refactoring a real 2000+ line project?
+👉 [Complete Example: AHS-Compressor + Claude](https://github.com/rcdrodrigo/ahs-compressor/blob/main/Complete%20Example%3A%20AHS-Compressor%20%2B%20Claude.md)
 
-**LLM:** "Puedo ver la función liberar_memoria en la estructura (ref: @13). Para analizarla y optimizarla, necesito ver la implementación actual. Por favor proporciona el contenido de @13."
+This detailed example demonstrates:
+- **🎯 Full step-by-step workflow** - From encoding to reconstruction.
+- **💬 Real conversation with Claude** - Specific interactions and optimized prompts.
+- **⚡ Refactoring a security system** - A complex project with multiple modules.
+- **📊 Performance metrics** - 5x faster than traditional methods.
+- **🛠️ Best practices** - Proven strategies for maximum efficiency.
 
-**Tú:** [Copia el contenido de tu mapa JSON para "@13"]
+**Example Results:**
+- ✅ 2,180 lines analyzed without losing context.
+- ✅ 15+ functions optimized with best practices.
+- ✅ 8 bugs found and proactively fixed.
+- ✅ Only ~1,200 tokens per iteration (vs. 8,000+ traditionally).
 
-**LLM:** [Analiza la función y sugiere optimizaciones]
+### 🚀 Highlighted Use Cases
+- **Legacy Code Modernization** - Update old systems.
+- **Architecture Reviews** - In-depth design analysis.
+- **Performance Optimization** - Identify and resolve bottlenecks.
+- **Code Quality Improvement** - Apply patterns and best practices.
 
-Este flujo de trabajo permite al LLM:
-- 🎯 Enfocarse inmediatamente en secciones de código relevantes
-- 🧠 Entender el contexto sin verse abrumado
-- 🔄 Trabajar iterativamente en mejoras específicas
-- 📊 Ver el panorama general de la arquitectura de tu proyecto
+## 🚀 Installation
+### Recommended Method: Using pipx
+#### 🔧 Why use `pipx`? (The Toolbox Analogy)
+Think of your computer as a large workshop where each project needs its own special tools:
+- **❌ Global Install:** Like throwing all tools into one giant box - chaos ensues!
+- **⚠️ Virtual Environments:** Like separate toolboxes - organized but inconvenient.
+- **✅ pipx (The Best of Both Worlds):** Creates isolated toolboxes but puts the main tools on a public wall for easy access.
 
-## 🤖 Ejemplo Completo con Claude
-
-¿Quieres ver AHS-Compressor en acción refactorizando un proyecto real de 2000+ líneas?
-
- 👉 [Complete Example: AHS-Compressor + Claude](https://github.com/tu-usuario/ahs-compressor/blob/main/Complete%20Example:%20AHS-Compressor%20+%20Claude.md)
-
-Este ejemplo detallado demuestra:
-
-- **🎯 Flujo completo paso a paso** - Desde codificación hasta reconstrucción
-- **💬 Conversación real con Claude** - Interacciones específicas y prompts optimizados  
-- **⚡ Refactorización de sistema de seguridad** - Proyecto complejo con múltiples módulos
-- **📊 Métricas de rendimiento** - 5x más rápido que métodos tradicionales
-- **🛠️ Mejores prácticas** - Estrategias comprobadas para máxima eficiencia
-
-**Resultados del ejemplo:**
-- ✅ 2,180 líneas analizadas sin perder contexto
-- ✅ 15+ funciones optimizadas con mejores prácticas  
-- ✅ 8 bugs encontrados y corregidos proactivamente
-- ✅ Solo ~1,200 tokens por iteración (vs 8,000+ tradicional)
-
-### 🚀 Casos de Uso Destacados
-
-- **Legacy Code Modernization** - Actualizar sistemas antiguos
-- **Architecture Reviews** - Análisis profundo de diseño  
-- **Performance Optimization** - Identificar y resolver cuellos de botella
-- **Code Quality Improvement** - Aplicar patrones y mejores prácticas
-
-
-
-## 🚀 Instalación
-
-### Método Recomendado: Usando pipx
-
-#### 🔧 ¿Por qué usar `pipx`? (La Analogía de la Caja de Herramientas)
-
-Piensa en tu computadora como un gran taller donde cada proyecto necesita sus propias herramientas especiales:
-
-- **❌ Instalación Global:** Como tirar todas las herramientas en una caja gigante - ¡se produce caos!
-- **⚠️ Entornos Virtuales:** Como cajas de herramientas separadas - organizadas pero inconvenientes
-- **✅ pipx (Lo Mejor de Ambos Mundos):** Crea cajas de herramientas aisladas pero pone las herramientas principales en una pared pública para fácil acceso
-
-#### Guía de Instalación Paso a Paso
-
-**1. Instala `pipx`** (una vez en tu vida):
+#### Step-by-Step Installation Guide
+**1. Install `pipx`** (once in your life):
 ```bash
 pip install pipx
-
-
-**2. Agrega `pipx` a tu sistema:**
+```
+**2. Add `pipx` to your system path:**
 ```bash
 pipx ensurepath
+```
+*(Restart your terminal after this step)*
 
-*(Reinicia tu terminal después de este paso)*
-
-**3. Instala `AHS-Compressor`:**
+**3. Install `AHS-Compressor`:**
 ```bash
 pipx install git+https://github.com/rcdrodrigo/ahs-compressor.git
 ```
-
-**4. Verifica la Instalación:**
+**4. Verify Installation:**
 ```bash
 ahs-cli --help
 ```
 
-### Métodos de Instalación Alternativos
-
-#### Para Desarrolladores (Desarrollo Local)
+### Alternative Installation Methods
+#### For Developers (Local Development)
 ```bash
 git clone https://github.com/rcdrodrigo/ahs-compressor.git
 cd ahs-compressor
 pip install -e .
 ```
 
-#### Usando pip (No Recomendado para Usuarios Finales)
+#### Using pip (Not Recommended for End-Users)
 ```bash
 pip install git+https://github.com/rcdrodrigo/ahs-compressor.git
 ```
 
-### Comandos de Mantenimiento
-
-**Actualizar a la última versión:**
+### Maintenance Commands
+**Upgrade to the latest version:**
 ```bash
 pipx upgrade ahs-compressor
 ```
-
-**Desinstalar:**
+**Uninstall:**
 ```bash
 pipx uninstall ahs-compressor
 ```
 
-## 📘 Uso
-
-### Interfaz de Línea de Comandos (CLI)
-
-**Codificar un proyecto completo:**
+## 📘 Usage
+### Command-Line Interface (CLI)
+**Encode a full project:**
 ```bash
-ahs-cli encode ./mi_proyecto -o proyecto_comprimido.json
+ahs-cli encode ./my_project -o compressed_project.json
+```
+**Decode a project:**
+```bash
+ahs-cli decode compressed_project.json -o ./my_restored_project
 ```
 
-**Decodificar un proyecto:**
-```bash
-ahs-cli decode proyecto_comprimido.json -o ./mi_proyecto_restaurado
-```
-
-### 🌐 API Web
-
-Inicia el servidor FastAPI:
+### 🌐 Web API
+Start the FastAPI server:
 ```bash
 uvicorn app.main:app --reload
 ```
+The server is available at `http://localhost:8000`.
 
-Servidor disponible en `http://localhost:8000`
+**Main Endpoints:**
+- `POST /compress-text`: Compresses a code snippet.
+- `POST /decompress-text`: Decompresses an AHS and map.
+- `GET /health`: Health check endpoint.
 
-**Endpoints Principales:**
-- `POST /compress-text`: Comprime un fragmento de código
-- `POST /decompress-text`: Descomprime un AHS y mapa
-- `GET /health`: Endpoint de verificación de salud
-
-## 🛠️ Desarrollo
-
-### Comenzando
+## 🛠️ Development
+### Getting Started
 ```bash
 git clone https://github.com/rcdrodrigo/ahs-compressor.git
 cd ahs-compressor
 pip install -e .
 ```
 
-### 🗺️ Hoja de Ruta
+### 🗺️ Roadmap
+- [ ] 📦 Publish package to PyPI.
+- [ ] 🌐 Implement project-level compression in the API with background tasks.
+- [ ] 🔧 Add support for more languages (JavaScript, Java).
+- [ ] 🐍 Create a Python client for easier interaction with the API.
+- [ ] 🔌 Develop a VS Code plugin.
 
-- [ ] 📦 Publicar paquete en PyPI
-- [ ] 🌐 Implementar compresión a nivel de proyecto en API con tareas en segundo plano
-- [ ] 🔧 Agregar soporte para más lenguajes (JavaScript, Java)
-- [ ] 🐍 Crear cliente Python para interacción más fácil con la API
-- [ ] 🔌 Desarrollo de plugin para VS Code
+## 💡 Best Practices
+### Maximizing Efficiency
+1.  **🎯 Focused Iterations:** Work on individual functions or classes, not entire projects at once.
+2.  **📝 Clear Prompting:** Be explicit about the AHS format and interaction patterns.
+3.  **🔄 Test-Driven Workflow:** Encode → LLM modifies → Update map → Decode → Test → Repeat.
+4.  **📚 Strategic Analysis:** Use AHS for architecture analysis and dependency identification.
+5.  **🔧 Version Control:** Always work in Git branches and commit after each cycle.
 
-## 💡 Mejores Prácticas
+❤️ Support This Project
+AHS-Compressor is a free and open-source project that requires time and effort to maintain and improve. If you find this tool useful, please consider supporting its development:
 
-### Maximizando la Eficiencia
+🌟 Ways to Support
+[![GitHub Sponsors](https://img.shields.io/badge/GitHub-Sponsors-ea4aaa?style=for-the-badge&logo=github)](https://github.com/sponsors/rcdrodrigo) [![Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/rcdrodrigo) [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/rcdrodrigo) [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/rcdrodrigo)
 
-1. **🎯 Iteraciones Focalizadas:** Trabaja en funciones o clases individuales, no en proyectos completos de una vez
-2. **📝 Prompting Claro:** Sé explícito sobre el formato AHS y patrones de interacción
-3. **🔄 Flujo de Trabajo Dirigido por Pruebas:** Codificar → LLM modifica → Actualizar mapa → Decodificar → Probar → Repetir
-4. **📚 Análisis Estratégico:** Usa AHS para análisis de arquitectura e identificación de dependencias
-5. **🔧 Control de Versiones:** Siempre trabaja en ramas de Git y haz commit después de cada ciclo
-
-❤️ Apoya Este Proyecto
-
-AHS-Compressor es un proyecto gratuito y de código abierto que requiere tiempo y esfuerzo para mantener y mejorar. Si encuentras esta herramienta útil, considera apoyar su desarrollo:
-
-🌟 Maneras de Apoyar
-
-[![GitHub Sponsors](https://img.shields.io/badge/GitHub-Sponsors-ea4aaa?style=for-the-badge&logo=github)](https://github.com/sponsors/rcdrodrigo)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/rcdrodrigo)
-[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/rcdrodrigo)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/rcdrodrigo)
-
-### 🚀 Otras formas de contribuir
-
-⭐ **Estrella el repositorio:** La forma más rápida de mostrar apoyo y ayudar al proyecto a ganar visibilidad
-
-💝 **Contribuye:** ¿Encontraste un error? ¿Tienes una idea de mejora? ¡Los pull requests son bienvenidos!
-
-📢 **Difunde la palabra:** Comparte el proyecto con otros desarrolladores que puedan encontrarlo útil
-
-🐛 **Reporta bugs:** Ayúdanos a mejorar reportando problemas en [Issues](https://github.com/rcdrodrigo/ahs-compressor/issues)
-
-📖 **Mejora la documentación:** La documentación siempre puede ser mejor
+### 🚀 Other ways to contribute
+⭐ **Star the repository:** The quickest way to show support and help the project gain visibility.
+💝 **Contribute:** Found a bug? Have an idea for an improvement? Pull requests are welcome!
+📢 **Spread the word:** Share the project with other developers who might find it useful.
+🐛 **Report bugs:** Help us improve by reporting issues in the [Issues](https://github.com/rcdrodrigo/ahs-compressor/issues) tab.
+📖 **Improve the documentation:** Documentation can always be better.
 
 ---
 
-## 🤝 Contribuyendo
+## 🤝 Contributing
+Contributions are welcome. Please:
+1.  Fork the project.
+2.  Create a feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
 
-Las contribuciones son bienvenidas. Por favor:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT - ve el archivo [LICENSE](LICENSE) para más detalles.
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📞 Contacto
-
+## 📞 Contact
 - **GitHub:** [@rcdrodrigo](https://github.com/rcdrodrigo)
-- **Issues:** [Reportar un problema](https://github.com/rcdrodrigo/ahs-compressor/issues)
+- **Issues:** [Report an issue](https://github.com/rcdrodrigo/ahs-compressor/issues)
 
 ---
-
-<div align="center">
-
-**¿Te ha sido útil AHS-Compressor?** ⭐ ¡Dale una estrella al repo!
-
-</div>
+**Found AHS-Compressor useful?** ⭐ Give the repo a star
